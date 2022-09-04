@@ -1,0 +1,158 @@
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 172
+Server version: 5.1.57-community MySQL Community Server (GPL)
+
+Copyright (c) 2000, 2010, Oracle and/or its affiliates. All rights reserved.
+This software comes with ABSOLUTELY NO WARRANTY. This is free software,
+and you are welcome to modify and redistribute it under the GPL v2 license
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use house;
+Database changed
+mysql> CREATE TABLE `login` (
+    ->   `userid` varchar(20) NOT NULL,
+    ->   `pass` varchar(20) DEFAULT NULL,
+    ->   PRIMARY KEY (`userid`)
+    -> ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+Query OK, 0 rows affected (0.09 sec)
+
+mysql> CREATE TABLE `material` (
+    ->   `mate_name` varchar(30) DEFAULT NULL,
+    ->   `mate_type` varchar(30) DEFAULT NULL,
+    ->   `company` varchar(30) DEFAULT NULL,
+    ->   `mfg_date` varchar(30) DEFAULT NULL,
+    ->   `exp_date` varchar(30) DEFAULT NULL,
+    ->   `qty` int(11) DEFAULT NULL,
+    ->   `price` double DEFAULT NULL
+    -> ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> CREATE TABLE `member` (
+    ->   `mem_id` int(11) NOT NULL AUTO_INCREMENT,
+    ->   `mem_name` varchar(30) DEFAULT NULL,
+    ->   `mem_address` varchar(50) DEFAULT NULL,
+    ->   `mem_contact` varchar(10) DEFAULT NULL,
+    ->   `mem_blood` varchar(10) DEFAULT NULL,
+    ->   `mem_history` varchar(50) DEFAULT NULL,
+    ->   `mem_dob` varchar(30) DEFAULT NULL,
+    ->   `mem_current` varchar(30) DEFAULT NULL,
+    ->   `mem_roomno` varchar(10) DEFAULT NULL,
+    ->   `mem_adddate` varchar(30) DEFAULT NULL,
+    ->   `mem_rtype` varchar(20) DEFAULT NULL,
+    ->   `mem_gender` varchar(10) DEFAULT NULL,
+    ->   `mem_docname` varchar(30) DEFAULT NULL,
+    ->   PRIMARY KEY (`mem_id`)
+    -> ) ENGINE=InnoDB AUTO_INCREMENT=103 DEFAULT CHARSET=utf8;
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> CREATE TABLE `worker` (
+    ->   `wor_id` int(11) NOT NULL AUTO_INCREMENT,
+    ->   `wor_name` varchar(30) DEFAULT NULL,
+    ->   `wor_address` varchar(50) DEFAULT NULL,
+    ->   `wor_contact` varchar(12) DEFAULT NULL,
+    ->   `wor_specialization` varchar(30) DEFAULT NULL,
+    ->   `wor_workfrom` varchar(30) DEFAULT NULL,
+    ->   `wor_workto` varchar(30) DEFAULT NULL,
+    ->   PRIMARY KEY (`wor_id`)
+    -> ) ENGINE=InnoDB AUTO_INCREMENT=403 DEFAULT CHARSET=utf8;
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> CREATE TABLE `bill` (
+    ->   `bill_id` int(11) NOT NULL AUTO_INCREMENT,
+    ->   `mem_id` int(11) DEFAULT NULL,
+    ->   `mem_name` varchar(30) DEFAULT NULL,
+    ->   `date_of_complain` varchar(30) DEFAULT NULL,
+    ->   `date_of_handle` varchar(30) DEFAULT NULL,
+    ->   `room_type` varchar(10) DEFAULT NULL,
+    ->   `bill_amt` double DEFAULT NULL,
+    ->   PRIMARY KEY (`bill_id`),
+    ->   KEY `mem_id` (`mem_id`),
+    ->   CONSTRAINT `bill_ibfk_1` FOREIGN KEY (`mem_id`) REFERENCES `member` (`mem_id`)
+    -> ) ENGINE=InnoDB AUTO_INCREMENT=202 DEFAULT CHARSET=utf8;
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> create table amenities(ame_name varchar(30),ame_type varchar(30),no_of_people int,start_time
+    -> int,end_time int);
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> desc member;
++-------------+-------------+------+-----+---------+----------------+
+| Field       | Type        | Null | Key | Default | Extra          |
++-------------+-------------+------+-----+---------+----------------+
+| mem_id      | int(11)     | NO   | PRI | NULL    | auto_increment |
+| mem_name    | varchar(30) | YES  |     | NULL    |                |
+| mem_address | varchar(50) | YES  |     | NULL    |                |
+| mem_contact | varchar(10) | YES  |     | NULL    |                |
+| mem_blood   | varchar(10) | YES  |     | NULL    |                |
+| mem_history | varchar(50) | YES  |     | NULL    |                |
+| mem_dob     | varchar(30) | YES  |     | NULL    |                |
+| mem_current | varchar(30) | YES  |     | NULL    |                |
+| mem_roomno  | varchar(10) | YES  |     | NULL    |                |
+| mem_adddate | varchar(30) | YES  |     | NULL    |                |
+| mem_rtype   | varchar(20) | YES  |     | NULL    |                |
+| mem_gender  | varchar(10) | YES  |     | NULL    |                |
+| mem_docname | varchar(30) | YES  |     | NULL    |                |
++-------------+-------------+------+-----+---------+----------------+
+13 rows in set (0.03 sec)
+
+mysql> desc worker;
++--------------------+-------------+------+-----+---------+----------------+
+| Field              | Type        | Null | Key | Default | Extra          |
++--------------------+-------------+------+-----+---------+----------------+
+| wor_id             | int(11)     | NO   | PRI | NULL    | auto_increment |
+| wor_name           | varchar(30) | YES  |     | NULL    |                |
+| wor_address        | varchar(50) | YES  |     | NULL    |                |
+| wor_contact        | varchar(12) | YES  |     | NULL    |                |
+| wor_specialization | varchar(30) | YES  |     | NULL    |                |
+| wor_workfrom       | varchar(30) | YES  |     | NULL    |                |
+| wor_workto         | varchar(30) | YES  |     | NULL    |                |
++--------------------+-------------+------+-----+---------+----------------+
+7 rows in set (0.00 sec)
+
+mysql> desc material;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| mate_name | varchar(30) | YES  |     | NULL    |       |
+| mate_type | varchar(30) | YES  |     | NULL    |       |
+| company   | varchar(30) | YES  |     | NULL    |       |
+| mfg_date  | varchar(30) | YES  |     | NULL    |       |
+| exp_date  | varchar(30) | YES  |     | NULL    |       |
+| qty       | int(11)     | YES  |     | NULL    |       |
+| price     | double      | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+7 rows in set (0.00 sec)
+
+mysql> create table amenity(ame_name varchar(30),ame_type varchar(30),no_of_people int,start_time
+    -> int,end_time int);
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> desc amenity;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| ame_name     | varchar(30) | YES  |     | NULL    |       |
+| ame_type     | varchar(30) | YES  |     | NULL    |       |
+| no_of_people | int(11)     | YES  |     | NULL    |       |
+| start_time   | int(11)     | YES  |     | NULL    |       |
+| end_time     | int(11)     | YES  |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> desc bill;
++------------------+-------------+------+-----+---------+----------------+
+| Field            | Type        | Null | Key | Default | Extra          |
++------------------+-------------+------+-----+---------+----------------+
+| bill_id          | int(11)     | NO   | PRI | NULL    | auto_increment |
+| mem_id           | int(11)     | YES  | MUL | NULL    |                |
+| mem_name         | varchar(30) | YES  |     | NULL    |                |
+| date_of_complain | varchar(30) | YES  |     | NULL    |                |
+| date_of_handle   | varchar(30) | YES  |     | NULL    |                |
+| room_type        | varchar(10) | YES  |     | NULL    |                |
+| bill_amt         | double      | YES  |     | NULL    |                |
++------------------+-------------+------+-----+---------+----------------+
+7 rows in set (0.00 sec)
+
+mysql>
